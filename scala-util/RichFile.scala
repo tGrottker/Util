@@ -3,7 +3,7 @@ import java.nio._
 import scala.io._
 
 /**
-  * Provides easy acces to a File.
+  * Provides easy acces to a java.io.File.
   */
 class RichFile(file: File) {
 	
