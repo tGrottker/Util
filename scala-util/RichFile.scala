@@ -7,8 +7,6 @@ import scala.io._
   */
 class RichFile(file: File) {
 	
-	// TODO add append
-	
 	/**
 	  * Returns the content of a file as string.
 	  */
@@ -23,6 +21,24 @@ class RichFile(file: File) {
 		val out = new PrintWriter(file)
 		try { out.print(newContent) }
 		finally { out.close }
+	}
+	
+	/**
+	 * Adds a string to the end of the file.
+	 */
+	def +=(s: String) {
+		var outStream: Option[FileOutputStream] = None
+		lazy val outChannel = outStream.get getChannel()
+		try {
+			outStream = Some(new FileOutputStream(file, true))
+			val buffer = ByteBuffer allocate(1024)
+			s foreach (c => buffer put(c toByte))
+			buffer flip()
+			outChannel write buffer
+		} finally {
+			outChannel close()
+			outStream.get close()
+		}
 	}
 	
 }
