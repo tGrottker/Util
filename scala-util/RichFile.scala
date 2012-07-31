@@ -25,6 +25,8 @@ class RichFile(file: File) {
 	
 	/**
 	 * Adds a string to the end of the file.
+	 * 
+	 * @param s The content to append to the file.
 	 */
 	def +=(s: String) {
 		var outStream: Option[FileOutputStream] = None
