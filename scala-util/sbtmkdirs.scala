@@ -67,7 +67,7 @@ object Mkdirs extends SimpleSwingApplication {
 		val out = new java.io.PrintWriter(buildSbt)
 		out.println("name := " + name + "\n")
 		out.println("version := 1.0\n")		// TODO make it customizable
-		out.println("scalaVersion := 2.9.2")
+		out.println("scalaVersion := 2.9.2\n")
 		out.close
 		if (gitignore_?.selected)
 			new File(project + "/.gitignore").createNewFile()
