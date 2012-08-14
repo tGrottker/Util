@@ -64,18 +64,21 @@ object Mkdirs extends SimpleSwingApplication {
 		val project = path + "/" + name
 		new File(project).mkdir()
 		val buildSbt = new File(project + "/build.sbt").createNewFile()
-		val out = new java.io.PrintWriter(buildSbt)
-		out.println("name := \"" + name + "\"\n")
-		out.println("version := \"1.0\"\n")		// TODO make it customizable
-		out.println("scalaVersion := \"2.9.2\"\n")
-		out.close
+		val buildOut = new java.io.PrintWriter(buildSbt)
+		buildOut.println("name := \"" + name + "\"\n")
+		buildOut.println("version := \"1.0\"\n")		// TODO make it customizable
+		buildOut.println("scalaVersion := \"2.9.2\"\n")
+		buildOut.close
 		if (gitignore_?.selected)
 			new File(project + "/.gitignore").createNewFile()
 		if (readme_?.selected)
 			new File(project + "/README.md").createNewFile()
 		new File(project + "/lib").mkdir()
 		new File(project + "/project").mkdir()
-		new File(project + "/project/build.sbt").createNewFile()
+		val prop = new File(project + "/project/build.properties").createNewFile()
+		val propOut = enw java.io.PrintWriter(prop)
+		propOut.println("sbt.version=0.12.0")
+		propOut.close()
 		new File(project + "/src/main/java").mkdirs()
 		new File(project + "/src/main/resources").mkdir()
 		new File(project + "/src/main/scala").mkdir()
